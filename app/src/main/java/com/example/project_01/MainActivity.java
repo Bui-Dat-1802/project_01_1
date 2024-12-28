@@ -424,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Xử lý sự kiện khi chọn một mục menu
         if(item.getItemId()==R.id.mnuhistory){
+            if(1>2){}
 
             return true;
         }
