@@ -11,30 +11,13 @@
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-
-        android:background="#99C8ED"
-        android:text="CALCULATOR"
-        android:textAlignment="gravity"
-        android:textColor="#FF5722"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:autoSizeTextType="none" />
-
-    <TextView
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:layout_weight="2"
 
         android:background="#F6ECEC"
         android:padding="10dp"
@@ -49,15 +32,14 @@
         android:gravity="bottom"
 
 
-
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -92,9 +74,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
 
             android:orientation="horizontal">
 
@@ -130,9 +112,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -167,9 +149,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -204,9 +186,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -241,9 +223,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
 
             android:orientation="horizontal">
 

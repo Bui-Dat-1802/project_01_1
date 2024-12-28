@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mnuhistory"
+        android:title="History"
+        >
+        <menu>
+            <item
+                android:id="@+id/his1"
+                android:title="his1"
+                />
+            <item
+                android:id="@+id/his2"
+                android:title="his1"
+                />
+            <item
+                android:id="@+id/his3"
+                android:title="his1"
+                />
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/mnubackground"
+        android:title="background"
+
+        >
+        <menu>
+            <item
+                android:id="@+id/background_green"
+                android:title="green"
+
+                />
+            <item
+                android:id="@+id/background_red"
+                android:title="red"
+                />
+            <item
+                android:id="@+id/background_yellow"
+                android:title="yellow"
+                />
+            <item
+                android:id="@+id/background_blue"
+                android:title="blue"
+                />
+        </menu>
+
+    </item>
+
+
+
+</menu>

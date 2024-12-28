@@ -1,10 +1,16 @@
 package com.example.project_01;
 
+import android.graphics.Color;
+
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
+
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
+
+        // Bật tiêu đề trên ActionBar
+        if (getSupportActionBar() != null) {
+            // Đặt tiêu đề tùy chỉnh
+            getSupportActionBar().setTitle("CALCULATOR");
+
+
+        }
+
+
 
         binding.editText.setText("nhap");
         text_xu_ly = binding.editText.getText().toString();
@@ -396,6 +412,47 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu từ file menu_main.xml vào Menu
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;  // Trả về true để menu được hiển thị
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Xử lý sự kiện khi chọn một mục menu
+        if(item.getItemId()==R.id.mnuhistory){
+
+            return true;
+        }
+        else if(item.getItemId()==R.id.background_green){
+//            item.setChecked(!item.isChecked());
+
+            binding.main.setBackgroundColor(Color.parseColor("#E1E7B8")); // Đổi màu nền thành xanh
+
+            return true;
+        }
+        else if(item.getItemId()==R.id.background_red){
+            binding.main.setBackgroundColor(Color.parseColor("#FBA6C3"));
+
+            return true;
+        }
+        else if(item.getItemId()==R.id.background_yellow){
+            binding.main.setBackgroundColor(Color.parseColor("#EDE281"));
+
+            return true;
+        }
+        else if(item.getItemId()==R.id.background_blue){
+            binding.main.setBackgroundColor(Color.parseColor("#9AD8F4"));
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private void setActivity(){
         String s = binding.editText.getText().toString();
 
