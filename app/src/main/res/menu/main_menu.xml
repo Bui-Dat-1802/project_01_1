@@ -18,6 +18,34 @@
                 android:id="@+id/his3"
                 android:title="his1"
                 />
+            <item
+                android:id="@+id/his4"
+                android:title="his4"
+                />
+            <item
+                android:id="@+id/his5"
+                android:title="his5"
+                />
+            <item
+                android:id="@+id/his6"
+                android:title="his6"
+                />
+            <item
+                android:id="@+id/his7"
+                android:title="his7"
+                />
+            <item
+                android:id="@+id/his8"
+                android:title="his8"
+                />
+            <item
+                android:id="@+id/his9"
+                android:title="his9"
+                />
+            <item
+                android:id="@+id/his10"
+                android:title="his10"
+                />
         </menu>
 
     </item>

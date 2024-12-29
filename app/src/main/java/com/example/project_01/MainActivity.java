@@ -1,12 +1,14 @@
 package com.example.project_01;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
-
+import android.widget.Toast;
 
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +20,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project_01.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private String text_xu_ly;
@@ -25,6 +32,22 @@ public class MainActivity extends AppCompatActivity {
     private int countngoac=0;
 
     private int countsqrt=0;
+
+    private String x;
+
+    private Queue<String> queue_xu_ly = new LinkedList<>();
+    private Queue<String> queue_show = new LinkedList<>();
+
+    private List<String> list_xu_ly = new ArrayList<>();
+    private List<String> list_show = new ArrayList<>();
+
+    SharedPreferences sharedPreferences_xu_ly;
+    SharedPreferences sharedPreferences_show;
+//    SharedPreferences sharedPreferences_xu_ly = getSharedPreferences("save_xu_ly", MODE_PRIVATE);
+//    SharedPreferences sharedPreferences_show = getSharedPreferences("save_show", MODE_PRIVATE);
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+        for(int i=0;i<10;i++){
+//            queue_xu_ly.add("0");
+//            queue_show.add("0");
+
+            list_xu_ly.add("0");
+            list_show.add("0");
+        }
+
 
 
 
@@ -220,6 +251,14 @@ public class MainActivity extends AppCompatActivity {
                             text_xu_ly=text_xu_ly+"^0.5";
                         }
 
+//                        queue_xu_ly.add(text_xu_ly);
+//                        queue_show.add(text_show);
+//                        queue_xu_ly.poll();
+//                        queue_show.poll();
+                        list_xu_ly.add(text_xu_ly);
+                        list_show.add(text_show);
+                        list_xu_ly.remove(0);
+                        list_show.remove(0);
 
                         Caculater caculater= new Caculater(text_xu_ly);
                         text_xu_ly =caculater.ketqua();
@@ -414,6 +453,87 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences_xu_ly = getSharedPreferences("save_xu_ly", MODE_PRIVATE);
+        SharedPreferences sharedPreferences_show = getSharedPreferences("save_show", MODE_PRIVATE);
+
+
+        SharedPreferences.Editor editor_xu_ly = sharedPreferences_xu_ly.edit();
+        SharedPreferences.Editor editor_show = sharedPreferences_show.edit();
+
+
+
+//        int index = 0;
+//        for (String item : queue_xu_ly) {
+//            editor_xu_ly.putString("list_xu_ly_" + index, item);
+//            index++;
+//        }
+//        index = 0;
+//        for (String item : queue_show) {
+//            editor_show.putString("list_show_" + index, item);
+//            index++;
+//            if(index==9) Toast.makeText(this, "History  ", Toast.LENGTH_LONG).show();
+//        }
+
+
+        int index = 0;
+        for (String item : list_xu_ly) {
+            editor_xu_ly.putString("list_xu_ly_" + index, item);
+            index++;
+        }
+        index = 0;
+        for (String item : list_show) {
+            editor_show.putString("list_show_" + index, item);
+            index++;
+            if(index==9) Toast.makeText(this, "History  ", Toast.LENGTH_LONG).show();
+        }
+
+        editor_xu_ly.apply();
+        editor_show.apply();
+
+
+
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+        SharedPreferences sharedPreferences_xu_ly = getSharedPreferences("save_xu_ly", MODE_PRIVATE);
+        SharedPreferences sharedPreferences_show = getSharedPreferences("save_show", MODE_PRIVATE);
+
+
+
+        for (int i = 0; i < 10; i++) {
+            String item = sharedPreferences_xu_ly.getString("list_xu_ly_" + i, null);
+            if (item != null) {
+//                queue_xu_ly.add(item);
+//                queue_xu_ly.poll();
+                list_xu_ly.add(item);
+                list_xu_ly.remove(0);
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            String item = sharedPreferences_show.getString("list_show_" + i, null);
+            if (item != null) {
+//                queue_show.add(item);
+//                queue_show.poll();
+                list_show.add(item);
+                list_show.remove(0);
+            }
+            if(i==9) Toast.makeText(this, "da onresume", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate menu từ file menu_main.xml vào Menu
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -423,12 +543,55 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Xử lý sự kiện khi chọn một mục menu
-        if(item.getItemId()==R.id.mnuhistory){
-            if(1>2){}
 
+        int[] hisid = {R.id.his1, R.id.his2, R.id.his3, R.id.his4, R.id.his5,
+                R.id.his6, R.id.his7, R.id.his8, R.id.his9, R.id.his10};
+        SubMenu subMenu = item.getSubMenu();
+
+        if(item.getItemId()==R.id.mnuhistory){
+
+
+            for (int i=0;i<10;i++){
+                MenuItem itemhis =subMenu.findItem(hisid[i]);
+
+//                itemhis.setTitle(queue_show.peek());
+//                String temp= queue_show.peek();
+//                queue_show.poll();
+//                queue_show.add(temp);
+
+
+                itemhis.setTitle(list_show.get(i));
+
+            }
             return true;
         }
-        else if(item.getItemId()==R.id.background_green){
+
+        for(int i=0;i<10;i++){
+            if (item.getItemId()==hisid[i]){
+
+                text_xu_ly=list_xu_ly.get(i);
+                text_show=list_show.get(i);
+                binding.editText.setText(text_show);
+                return true;
+            }
+        }
+//        if(item.getItemId()==R.id.his1){
+//
+//            return true;
+//        }
+//        else if(item.getItemId()==R.id.his2){
+//
+//            item.setTitle("hello");
+//            return true;
+//        }
+//        else if(item.getItemId()==R.id.his2){
+//
+//            item.setTitle("hello");
+//            return true;
+//        }
+
+
+        if(item.getItemId()==R.id.background_green){
 //            item.setChecked(!item.isChecked());
 
             binding.main.setBackgroundColor(Color.parseColor("#E1E7B8")); // Đổi màu nền thành xanh
