@@ -465,19 +465,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        int index = 0;
-//        for (String item : queue_xu_ly) {
-//            editor_xu_ly.putString("list_xu_ly_" + index, item);
-//            index++;
-//        }
-//        index = 0;
-//        for (String item : queue_show) {
-//            editor_show.putString("list_show_" + index, item);
-//            index++;
-//            if(index==9) Toast.makeText(this, "History  ", Toast.LENGTH_LONG).show();
-//        }
-
-
         int index = 0;
         for (String item : list_xu_ly) {
             editor_xu_ly.putString("list_xu_ly_" + index, item);
@@ -487,7 +474,6 @@ public class MainActivity extends AppCompatActivity {
         for (String item : list_show) {
             editor_show.putString("list_show_" + index, item);
             index++;
-            if(index==9) Toast.makeText(this, "History  ", Toast.LENGTH_LONG).show();
         }
 
         editor_xu_ly.apply();
@@ -528,7 +514,6 @@ public class MainActivity extends AppCompatActivity {
                 list_show.add(item);
                 list_show.remove(0);
             }
-            if(i==9) Toast.makeText(this, "da onresume", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -554,12 +539,6 @@ public class MainActivity extends AppCompatActivity {
             for (int i=0;i<10;i++){
                 MenuItem itemhis =subMenu.findItem(hisid[i]);
 
-//                itemhis.setTitle(queue_show.peek());
-//                String temp= queue_show.peek();
-//                queue_show.poll();
-//                queue_show.add(temp);
-
-
                 itemhis.setTitle(list_show.get(i));
 
             }
@@ -575,20 +554,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         }
-//        if(item.getItemId()==R.id.his1){
-//
-//            return true;
-//        }
-//        else if(item.getItemId()==R.id.his2){
-//
-//            item.setTitle("hello");
-//            return true;
-//        }
-//        else if(item.getItemId()==R.id.his2){
-//
-//            item.setTitle("hello");
-//            return true;
-//        }
 
 
         if(item.getItemId()==R.id.background_green){
