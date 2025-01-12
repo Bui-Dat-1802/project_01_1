@@ -3,30 +3,28 @@ package com.example.project_01;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Caculater {
+public class Calculator {
     private String s;
 
-    public Caculater(String s){
+    public Calculator(String s){
         this.s=s;
     }
 
     public String ketqua(){
 
-        return ketqua(kiemtra(this.s));
+        return tinhKetQua(chuyenBieuThuc(this.s));
     }
 
-
     // kiểm tra độ ưu tiên các toán tử
-    public static int ktUuTien(char x){
+    public int ktUuTien(char x){
         if ((x=='+')||(x=='-')) return 1;
         if ((x=='*')||(x=='/')) return 2;
         if ((x=='^')||(x=='!')) return 3;
         return 0;
     }
 
-
     //chuyển biển thức trung tố sang hậu tố
-    public static ArrayList<String> kiemtra(String s){
+    private ArrayList<String> chuyenBieuThuc(String s){
         ArrayList<String> list = new ArrayList<String>();
         char[] s1=s.toCharArray();
         String temp="";
@@ -237,7 +235,7 @@ public class Caculater {
     }
 
 
-    public static String ketqua(ArrayList<String> list){
+    private String tinhKetQua(ArrayList<String> list){
         Stack<String> stack= new Stack<>();
         double temp1,temp2;
         for (int i=0;i<list.size();i++){

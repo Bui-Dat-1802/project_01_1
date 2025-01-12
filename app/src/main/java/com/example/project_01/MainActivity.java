@@ -8,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.Toast;
-
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -72,6 +70,134 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        setActivity();
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences_xu_ly = getSharedPreferences("save_xu_ly", MODE_PRIVATE);
+        SharedPreferences sharedPreferences_show = getSharedPreferences("save_show", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor_xu_ly = sharedPreferences_xu_ly.edit();
+        SharedPreferences.Editor editor_show = sharedPreferences_show.edit();
+
+        int index = 0;
+        for (String item : list_xu_ly) {
+            editor_xu_ly.putString("list_xu_ly_" + index, item);
+            index++;
+        }
+        index = 0;
+        for (String item : list_show) {
+            editor_show.putString("list_show_" + index, item);
+            index++;
+        }
+
+        editor_xu_ly.apply();
+        editor_show.apply();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPreferences_xu_ly = getSharedPreferences("save_xu_ly", MODE_PRIVATE);
+        SharedPreferences sharedPreferences_show = getSharedPreferences("save_show", MODE_PRIVATE);
+
+        for (int i = 0; i < 10; i++) {
+            String item = sharedPreferences_xu_ly.getString("list_xu_ly_" + i, null);
+            if (item != null) {
+//                queue_xu_ly.add(item);
+//                queue_xu_ly.poll();
+                list_xu_ly.add(item);
+                list_xu_ly.remove(0);
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            String item = sharedPreferences_show.getString("list_show_" + i, null);
+            if (item != null) {
+//                queue_show.add(item);
+//                queue_show.poll();
+                list_show.add(item);
+                list_show.remove(0);
+            }
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu từ file menu_main.xml vào Menu
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;  // Trả về true để menu được hiển thị
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Xử lý sự kiện khi chọn một mục menu
+
+        int[] hisid = {R.id.his1, R.id.his2, R.id.his3, R.id.his4, R.id.his5,
+                R.id.his6, R.id.his7, R.id.his8, R.id.his9, R.id.his10};
+        SubMenu subMenu = item.getSubMenu();
+
+        if(item.getItemId()==R.id.mnuhistory){
+
+
+            for (int i=0;i<10;i++){
+                MenuItem itemhis =subMenu.findItem(hisid[i]);
+
+                itemhis.setTitle(list_show.get(i));
+
+            }
+            return true;
+        }
+
+        for(int i=0;i<10;i++){
+            if (item.getItemId()==hisid[i]){
+
+                text_xu_ly=list_xu_ly.get(i);
+                text_show=list_show.get(i);
+                binding.editText.setText(text_show);
+                return true;
+            }
+        }
+
+
+        if(item.getItemId()==R.id.background_green){
+//            item.setChecked(!item.isChecked());
+
+            binding.main.setBackgroundColor(Color.parseColor("#E1E7B8")); // Đổi màu nền thành xanh
+
+            return true;
+        }
+        else if(item.getItemId()==R.id.background_red){
+            binding.main.setBackgroundColor(Color.parseColor("#FBA6C3"));
+
+            return true;
+        }
+        else if(item.getItemId()==R.id.background_yellow){
+            binding.main.setBackgroundColor(Color.parseColor("#EDE281"));
+
+            return true;
+        }
+        else if(item.getItemId()==R.id.background_blue){
+            binding.main.setBackgroundColor(Color.parseColor("#9AD8F4"));
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setActivity(){
+        String s = binding.editText.getText().toString();
 
 
         binding.editText.setText("nhap");
@@ -260,9 +386,9 @@ public class MainActivity extends AppCompatActivity {
                         list_xu_ly.remove(0);
                         list_show.remove(0);
 
-                        Caculater caculater= new Caculater(text_xu_ly);
-                        text_xu_ly =caculater.ketqua();
-                        text_show =caculater.ketqua();
+                        Calculator calculator= new Calculator(text_xu_ly);
+                        text_xu_ly =calculator.ketqua();
+                        text_show =calculator.ketqua();
                         countngoac=0;
                         binding.editText.setText(text_show);
                     }
@@ -435,155 +561,6 @@ public class MainActivity extends AppCompatActivity {
         binding.btnpow.setOnClickListener(event);
         binding.btnphantram.setOnClickListener(event);
         binding.btngiaithua.setOnClickListener(event);
-
-
-
-
-
-
-        setActivity();
-
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        SharedPreferences sharedPreferences_xu_ly = getSharedPreferences("save_xu_ly", MODE_PRIVATE);
-        SharedPreferences sharedPreferences_show = getSharedPreferences("save_show", MODE_PRIVATE);
-
-
-        SharedPreferences.Editor editor_xu_ly = sharedPreferences_xu_ly.edit();
-        SharedPreferences.Editor editor_show = sharedPreferences_show.edit();
-
-
-
-        int index = 0;
-        for (String item : list_xu_ly) {
-            editor_xu_ly.putString("list_xu_ly_" + index, item);
-            index++;
-        }
-        index = 0;
-        for (String item : list_show) {
-            editor_show.putString("list_show_" + index, item);
-            index++;
-        }
-
-        editor_xu_ly.apply();
-        editor_show.apply();
-
-
-
-
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-
-        SharedPreferences sharedPreferences_xu_ly = getSharedPreferences("save_xu_ly", MODE_PRIVATE);
-        SharedPreferences sharedPreferences_show = getSharedPreferences("save_show", MODE_PRIVATE);
-
-
-
-        for (int i = 0; i < 10; i++) {
-            String item = sharedPreferences_xu_ly.getString("list_xu_ly_" + i, null);
-            if (item != null) {
-//                queue_xu_ly.add(item);
-//                queue_xu_ly.poll();
-                list_xu_ly.add(item);
-                list_xu_ly.remove(0);
-            }
-        }
-        for (int i = 0; i < 10; i++) {
-            String item = sharedPreferences_show.getString("list_show_" + i, null);
-            if (item != null) {
-//                queue_show.add(item);
-//                queue_show.poll();
-                list_show.add(item);
-                list_show.remove(0);
-            }
-        }
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate menu từ file menu_main.xml vào Menu
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;  // Trả về true để menu được hiển thị
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // Xử lý sự kiện khi chọn một mục menu
-
-        int[] hisid = {R.id.his1, R.id.his2, R.id.his3, R.id.his4, R.id.his5,
-                R.id.his6, R.id.his7, R.id.his8, R.id.his9, R.id.his10};
-        SubMenu subMenu = item.getSubMenu();
-
-        if(item.getItemId()==R.id.mnuhistory){
-
-
-            for (int i=0;i<10;i++){
-                MenuItem itemhis =subMenu.findItem(hisid[i]);
-
-                itemhis.setTitle(list_show.get(i));
-
-            }
-            return true;
-        }
-
-        for(int i=0;i<10;i++){
-            if (item.getItemId()==hisid[i]){
-
-                text_xu_ly=list_xu_ly.get(i);
-                text_show=list_show.get(i);
-                binding.editText.setText(text_show);
-                return true;
-            }
-        }
-
-
-        if(item.getItemId()==R.id.background_green){
-//            item.setChecked(!item.isChecked());
-
-            binding.main.setBackgroundColor(Color.parseColor("#E1E7B8")); // Đổi màu nền thành xanh
-
-            return true;
-        }
-        else if(item.getItemId()==R.id.background_red){
-            binding.main.setBackgroundColor(Color.parseColor("#FBA6C3"));
-
-            return true;
-        }
-        else if(item.getItemId()==R.id.background_yellow){
-            binding.main.setBackgroundColor(Color.parseColor("#EDE281"));
-
-            return true;
-        }
-        else if(item.getItemId()==R.id.background_blue){
-            binding.main.setBackgroundColor(Color.parseColor("#9AD8F4"));
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    private void setActivity(){
-        String s = binding.editText.getText().toString();
 
     }
 
